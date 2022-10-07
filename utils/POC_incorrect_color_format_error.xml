@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<document>
+    <text>
+        <data>Hello World !</data>
+        <color>#xxx</color>
+        <type>h1</type>
+    </text>
+    <text>
+        <data>Build a simple web page with XML !</data>
+        <color>#xxx</color>
+        <type>p</type>
+    </text>
+</document>

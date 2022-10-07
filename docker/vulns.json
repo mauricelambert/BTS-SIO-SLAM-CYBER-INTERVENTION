@@ -1,0 +1,142 @@
+{
+    "scripts": {
+        "check_up.py": "config_check_up",
+        "fileshare.py": "config_fileshare",
+        "num_usages.py": "config_num_usages",
+        "xml_counter.py": "config_xml_counter",
+        "xml_to_html.py": "config_xml_to_html",
+        "password_manager.py": "config_password_manager"
+    },
+
+    "config_check_up": {
+        "timeout": 10,
+        "no_password": true,
+        "launcher": "python",
+        "category": "Network",
+        "access_users": [0, 1, 2],
+        "content_type": "text/plain",
+        "args": "config_check_up_args",
+        "description": "This script checks host is up."
+    },
+
+    "config_check_up_args": {
+        "host": "arg_host"
+    },
+
+    "arg_host": {
+        "example": "192.168.56.1",
+        "description": "Host (IP or Netbios name) to check is up."
+    },
+
+    "config_fileshare": {
+        "timeout": 10,
+        "no_password": true,
+        "category": "Share",
+        "launcher": "python",
+        "access_users": [0, 1, 2],
+        "content_type": "text/plain",
+        "args": "config_fileshare_args",
+        "description": "This script shares files content."
+    },
+
+    "config_fileshare_args": {
+        "action": "arg_action1",
+        "filename": "arg_filename",
+        "filecontent": "arg_filecontent"
+    },
+
+    "arg_action1": {
+        "predefined_values": ["list", "read", "write", "add", "delete"],
+        "description": "Action to perform."
+    },
+
+    "arg_filename": {
+        "example": "file.txt",
+        "description": "Filename to read, write, add or delete content (unused with 'list' action)."
+    },
+
+    "arg_filecontent": {
+        "input": true,
+        "html_type": "file"
+    },
+
+    "config_num_usages": {
+        "timeout": 10,
+        "no_password": true,
+        "launcher": "python",
+        "access_users": [0, 1, 2],
+        "category": "Miscellaneous",
+        "content_type": "text/plain",
+        "args": "config_num_usages_args",
+        "description": "Simple script used to sort, get the min, max, or sum of numbers."
+    },
+
+    "config_num_usages_args": {
+        "action": "arg_action",
+        "numbers": "arg_numbers"
+    },
+
+    "arg_action": {
+        "predefined_values": ["max", "min", "sum", "sorted"],
+        "description": "Action to perform."
+    },
+
+    "arg_numbers": {
+        "list": true,
+        "example": "123",
+        "html_type": "number",
+        "description": "Numbers to use."
+    },
+
+    "config_password_manager": {
+        "timeout": 10,
+        "no_password": true,
+        "launcher": "python",
+        "category": "Passwords",
+        "access_users": [0, 1, 2],
+        "content_type": "text/plain",
+        "args": "config_password_manager_args",
+        "description": "This script stores and reads ciphered passwords"
+    },
+
+    "config_password_manager_args": {
+        "data": "arg_filescontent"
+    },
+
+    "arg_filescontent": {
+        "list": true,
+        "input": true,
+        "html_type": "file"
+    },
+
+    "config_xml_counter": {
+        "timeout": 10,
+        "category": "XML",
+        "no_password": true,
+        "launcher": "python",
+        "access_users": [0, 1, 2],
+        "content_type": "text/plain",
+        "args": "config_xml_counter_args",
+        "description": "This script counts XML elements types, childs and attributes."
+    },
+
+    "config_xml_counter_args": {
+        "xml_document": "arg_filecontent"
+    },
+
+    "config_xml_to_html": {
+        "timeout": 10,
+        "category": "XML",
+        "no_password": true,
+        "launcher": "python",
+        "access_users": [0, 1, 2],
+        "content_type": "text/plain",
+        "args": "config_xml_to_html_args",
+        "stderr_content_type": "text/html",
+        "description": "This script generates a basic HTML page from XML file."
+    },
+
+    "config_xml_to_html_args": {
+        "xml_document": "arg_filecontent"
+    }
+}
