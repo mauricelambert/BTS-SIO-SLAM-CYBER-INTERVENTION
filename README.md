@@ -69,6 +69,7 @@ RUN python3 /usr/src/WebScripts/lib/python3.9/site-packages/WebScripts/scripts/a
 
 ```bash
 docker build -t weakwebscripts .
+
 docker run --restart always -p 4443:443/tcp --mount type=volume,source=apache_webscripts_data,target=/usr/src/WebScripts/lib/python3.9/site-packages/WebScripts/data --name WeakWebScripts -d weakwebscripts
 
 docker exec -it WeakWebScripts /bin/bash
@@ -563,7 +564,7 @@ f'''<?xml version="1.0"?>
     "config_check_up": {
         "timeout": 10,
         "no_password": true,
-        "launcher": "python",
+        "launcher": "python3",
         "category": "Network",
         "access_users": [0, 1, 2],
         "content_type": "text/plain",
@@ -584,7 +585,7 @@ f'''<?xml version="1.0"?>
         "timeout": 10,
         "no_password": true,
         "category": "Share",
-        "launcher": "python",
+        "launcher": "python3",
         "access_users": [0, 1, 2],
         "content_type": "text/plain",
         "args": "config_fileshare_args",
@@ -615,7 +616,7 @@ f'''<?xml version="1.0"?>
     "config_num_usages": {
         "timeout": 10,
         "no_password": true,
-        "launcher": "python",
+        "launcher": "python3",
         "access_users": [0, 1, 2],
         "category": "Miscellaneous",
         "content_type": "text/plain",
@@ -643,7 +644,7 @@ f'''<?xml version="1.0"?>
     "config_password_manager": {
         "timeout": 10,
         "no_password": true,
-        "launcher": "python",
+        "launcher": "python3",
         "category": "Passwords",
         "access_users": [0, 1, 2],
         "content_type": "text/plain",
@@ -665,7 +666,7 @@ f'''<?xml version="1.0"?>
         "timeout": 10,
         "category": "XML",
         "no_password": true,
-        "launcher": "python",
+        "launcher": "python3",
         "access_users": [0, 1, 2],
         "content_type": "text/plain",
         "args": "config_xml_counter_args",
@@ -680,7 +681,7 @@ f'''<?xml version="1.0"?>
         "timeout": 10,
         "category": "XML",
         "no_password": true,
-        "launcher": "python",
+        "launcher": "python3",
         "access_users": [0, 1, 2],
         "content_type": "text/plain",
         "args": "config_xml_to_html_args",
