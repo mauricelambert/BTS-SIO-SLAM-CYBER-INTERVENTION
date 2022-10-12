@@ -7,27 +7,28 @@ This lesson explains how and why developers are at the center of cybersecurity.
 ### Question for students
 
 1. Where are the vulnerabilities ?
-    - Everywhere (OS, Web Application, Web Page, Scripts, Application, ...).
+    - Everywhere (OS, Web Applications, Web Pages, Scripts, Applications, ...).
 2. How are they created ?
-    - They are implemented.
-3. Who developed the vulnerabilities ?
+    - They are introduced during implementation.
+3. Who developed the vulnerabilities ? "who did the implementation?"
     - Developers
 4. Why are they implemented ?
-    - Work overload (they do not have time to develop with good practices to meet the need of production)
+    - Work overload (they don't have enough time to develop with good practices to meet the need of production) (moui. bon. excuse facile. le vrai problème, ce sont les priorités)
     - Developers are not trained in cybersecurity
-    - The complexity of production can cause bugs that are difficult to identify in development
-    - There are no safety advisories issued at project design
+    - The complexity of production can cause bugs that are difficult to identify in development (formulation bizarre. tout est complexe. les bugs difficiles à identifier lors du dev, c'est toujours)
+    - There are no safety advisories issued during project design (par qui?)
     - ...
 
-## Practice/Exploitation
+## The VM configuration
+
+**Do not use this part, it's useful to know how to debug, to add something or how it's work**.
 
 ### VM administration
 
-Configure first network interfaces: *NAT* -> *Advanced* -> *Port forwarding* -> *Add* -> *Rule 1*, *127.0.0.1*, *2222*, , *22*.
+*NAT* -> *Advanced* -> *Port forwarding* -> *Add* -> *Rule 1*, *127.0.0.1*, *2222*, , *22*.
+                                                     *Rule 2*, *127.0.0.1*, *8008*, , *4443*.
 
-*Rule 2*, *127.0.0.1*, *8008*, , *4443*.
-
-**SSH is not enabled**, start SSH from console, connect to `ssh -p 2222 kali@127.0.0.1`, password: `2VPNpgFzyq7xo9`.
+**SSH is not enabled**, from the console, connect to `ssh -p 2222 kali@127.0.0.1`, password: `2VPNpgFzyq7xo9`.
 
 ```xml
 <Network>
@@ -74,6 +75,12 @@ docker run --restart always -p 4443:443/tcp --mount type=volume,source=apache_we
 
 docker exec -it WeakWebScripts /bin/bash
 ```
+
+#### Upload on SourceForge
+
+```bash
+scp CyberLesson.zip mauricelambert@frs.sourceforge.net:/home/frs/project/bts-sio-slam-cyberintervention/VM.zip
+``` 
 
 ### Vulnerable scripts
 
@@ -205,7 +212,7 @@ class Key:
 
 class Reader:
     def __init__(self, position = None, username = None):
-        self.filter = partial(lambda u, p, l, c, v: p == v, position) if position is not None else partial(lambda u, p, l, c, v: p == v, username)
+        self.filter = partial(lambda u, p, l, c, v: p == v, position) if position is not None else partial(lambda u, p, l, c, v: p == v, username) # wtf?
 
     def get_password(self):
         with open(Credentials.filename) as file:
@@ -226,7 +233,7 @@ class Credentials:
         self.url = url
         self.comment = comment
 
-    def cipher(self):
+    def encode_decode(self):
         return b64encode(self._cipher()).decode()
 
     def uncipher(self):
@@ -237,19 +244,19 @@ class Credentials:
         return bytes(char ^ key.key[i % key.length] for i, char in enumerate(self.password))
 
     def save(self):
-        with open(self.filename, "ab") as file:
-            file.write(f"{self.username},{self.cipher()},{self.url},{self.comment}\n")
+        with open(self.filename, "a") as file:
+            file.write(f"{self.username},{self.encode_decode()},{self.url},{self.comment}\n")
 
 key = Key(b"")
 object_ = loads(b64decode(stdin.buffer.read()))
 
 if object_.__class__.__name__ == "Key":
     key = object_
-    print("The key is changed.")
+    print("The key has been updated")
 elif object_.__class__.__name__ == "Credentials":
     credentials = object_
     credentials.save()
-    print("The credentials are saved.")
+    print("The credentials are saved")
 elif object_.__class__.__name__ == "Reader":
     reader = object_
     credentials = reader.get_password()
@@ -695,15 +702,27 @@ f'''<?xml version="1.0"?>
 }
 ```
 
+## Practice/Exploitation
+
 ### Student
 
 Start the VM `CyberLesson` and open your web browser on `127.0.0.1:8008`.
 
-Find 6 vulnerabilities. Every 5 minutes help students (15 minutes per vulnerabilities -> 3 helps per vulnerabilities). Total 90 minutes.
+Find 6 vulnerabilities. Help other students once every 5 minutes (15 minutes per vulnerabilities -> 3 helps per vulnerabilities). Total 90 minutes.
 
-## How to resolve cybersecurity problems
+### Examples in real life
+
+ 1. Log4Shell (default Java logging framework with RCE introduced in 2013 and discovered in 2021 - Deserialization of Untrusted Data), similar to pickle vulnerability.
+ 2. Spring4Shell (popular Java Web framework with RCE discovered in 2021 - Improper Control of Generation of Code), similar to `num_usage.py` vulnerability.
+ 3. ...
+
+## How to reduce security issues
 
  - Training developers in cybersecurity
+     - know, apply and enforce good practices
+     - DON'T REINVENT THE WHEEL. Use secure primitives. DO. NOT. EVER. IMPLEMENT. A. CRYPTO. FUNCTION (only people to whom the words "side channel attack" should consider it, if anything because they'll know why and how it's a bad idea)
+     - read the documentation
+     - all inputs must be cleaned and checked
  - Security by design
  - SAST/DAST scans (with CI/CD)
  - Tests (unittests, pentests, bug bounty, ...)
