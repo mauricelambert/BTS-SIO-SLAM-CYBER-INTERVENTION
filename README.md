@@ -13,10 +13,10 @@ This lesson explains how and why developers are at the center of cybersecurity.
 3. Who developed the vulnerabilities ? "who did the implementation?"
     - Developers
 4. Why are they implemented ?
-    - Work overload (they don't have enough time to develop with good practices to meet the need of production) (moui. bon. excuse facile. le vrai problème, ce sont les priorités)
+    - Work overload (they don't have enough time to develop with good practices to meet the need of production)
     - Developers are not trained in cybersecurity
-    - The complexity of production can cause bugs that are difficult to identify in development (formulation bizarre. tout est complexe. les bugs difficiles à identifier lors du dev, c'est toujours)
-    - There are no safety advisories issued during project design (par qui?)
+    - The complexity of production can cause bugs that are difficult to identify in development
+    - There are no safety advisories issued during project design
     - ...
 
 ## The VM configuration
